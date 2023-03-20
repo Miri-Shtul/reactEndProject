@@ -4,7 +4,7 @@ import axios from "axios";
 import { UserCtx } from "../UserContext";
 import { MANAGER_NAME } from "../../Constans";
 import { useDispatch } from "react-redux";
-import { setDonations, setIsManagar, setProducts } from "../../redux/actions/actions";
+import { setCurrentUser, setDonations, setIsManagar, setProducts } from "../../redux/actions/actions";
 
 export default function Login(props) {
     const userCtx = useContext(UserCtx);
@@ -16,17 +16,21 @@ export default function Login(props) {
 
     const next = () => {
         if (userName && userPassword) {
-            setUserName(userName)
             axios.get(`http://localhost:4000/user/getUserByName/${userName}`)
                 .then(data => {
-                    console.log(data)
-                    if (!data || data.data.password != userPassword) {
-                       console.log('posting')
+                    if (!data || data.data.password !== userPassword) {
                         axios.post('http://localhost:4000/user/addUser', { username: userName, password: userPassword, address: null, email: null })
                             .then(succ => console.log("name", succ.data.username))
+
                     }
                     setIsLogin(true)
                     localStorage.setItem("currentUser", userName)
+                    const user = {
+                        name: userName,
+                        adress: data?.data?.address,
+                        email: data?.data?.email
+                    }
+                    dispatch(setCurrentUser(user))
                 }
                 )
             if (userName === MANAGER_NAME) {

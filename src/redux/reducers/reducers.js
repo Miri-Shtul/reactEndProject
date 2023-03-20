@@ -5,7 +5,8 @@ import * as actions from '../actions/actions'
 export const initialState = {
     products: [],
     isManager: false,
-    donations:[]
+    donations: [],
+    currentUser: {}
 }
 
 export function appReducer(state, action) {
@@ -47,6 +48,11 @@ export function appReducer(state, action) {
             return newState
         }
 
+        case actions.SET_CURRENT_USER: {
+            const newState = {...state}
+            newState.currentUser = action.payload.user
+            return newState
+        }
         default:
             return state
     }

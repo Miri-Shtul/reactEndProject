@@ -7,6 +7,7 @@ import DonationArr from "../components/Donation/DonationArr";
 import ProductDetails from "../components/Products/ProductDetails";
 import Products from "../components/Products/Products";
 import PruductTable from "../components/Products/ProductTable";
+import DonateDetails from "../components/Donation/DonateDetails";
 
 export default function MyRoute(props) {
     const { setIsLogin } = props
@@ -19,8 +20,9 @@ export default function MyRoute(props) {
     return (
         <div>
             <nav className="navbar navbar-expand-sm bg-light" >
-                <Link to="/products" style={{ color: "black" }} className="navbar-brand">Products</Link><br />
+                <Link to="/" style={{ color: "black" }} className="navbar-brand">Products</Link><br />
                 <Link to="/donation" style={{ color: "black" }} className="navbar-brand">Donation</Link><br />
+                <Link to="/donateDetails" style={{ color: "black" }} className="navbar-brand">Donate-details</Link><br />
                 {isManager && <>
                     <Link to="/tableProducts" style={{ color: "black" }} className="navbar-brand">Product-Table</Link>
                     <Link to="/donationArr" style={{ color: "black" }} className="navbar-brand" > Donations Arr</Link></>
@@ -29,8 +31,9 @@ export default function MyRoute(props) {
             </nav>
             
             <Routes>
-                <Route path='/products' element={<Products />} />
+                <Route path='/' element={<Products />} />
                 <Route path='/donation' element={<Donation />} />
+                <Route path='/donateDetails' element={<DonateDetails />} />
                 <Route path="/productDetails" element={<ProductDetails />} />
                 <Route path="/tableProducts" element={<PruductTable />} />
                 <Route path="/ProductDetails/:name/:description/:price/:image" element={<ProductDetails/>}/>

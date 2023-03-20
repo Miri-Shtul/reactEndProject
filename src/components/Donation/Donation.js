@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { json, useNavigate } from "react-router-dom";
 import { setNewDonations } from "../../redux/actions/actions";
 export default function Donation() {
-    let userName = localStorage.getItem("currentUser")
+    let userName = useSelector(state=> state.currentUser).name
     const [amount, setAmount] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const addDonation = () => {
         const donation = {
             name: userName,
             amount: amount
         }
         dispatch(setNewDonations(donation))
-        navigate("/products")
+        navigate("/")
     }
 
     return (
